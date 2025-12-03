@@ -15,7 +15,7 @@ public class Payment {
         this.amount = amount;
     }
 
-    // Геттеры
+
     public String getFullName() {
         return fullName;
     }
