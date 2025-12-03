@@ -20,7 +20,12 @@ public class FinanceReport {
     public FinanceReport(String reporterName, int reportDay, int reportMonth, int reportYear, Payment[] payments) {
         this.reporterName = reporterName;
         setReportDate(reportDay, reportMonth, reportYear);
-        this.payments = payments != null ? payments : new Payment[0];
+        if (payments != null) {
+            this.payments = payments;
+        } else
+        {
+            this.payments = new Payment[0];
+        }
     }
 
 
