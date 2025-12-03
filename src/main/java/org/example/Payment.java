@@ -6,9 +6,9 @@ public class Payment {
     private int day;
     private int month;
     private int year;
-    private int amount; // сумма в копейках
+    private int amount;
 
-    // Конструктор
+
     public Payment(String fullName, int day, int month, int year, int amount) {
         this.fullName = fullName;
         setDate(day, month, year);
@@ -36,13 +36,12 @@ public class Payment {
         return amount;
     }
 
-    // Сеттеры
+
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
     public void setDate(int day, int month, int year) {
-        // Простая валидация даты
         if (day < 1 || day > 31) {
             throw new IllegalArgumentException("День должен быть от 1 до 31");
         }
@@ -62,7 +61,6 @@ public class Payment {
         this.amount = amount;
     }
 
-    // Метод для получения суммы в рублях и копейках
     public String getAmountInRubles() {
         int rubles = amount / 100;
         int kopecks = amount % 100;

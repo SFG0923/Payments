@@ -94,11 +94,11 @@ class FinanceReportTest {
         FinanceReport original = new FinanceReport("Сидоров Сидор", 20, 6, 2023, payments);
         FinanceReport copy = new FinanceReport(original);
 
-        // Изменяем оригинальный платеж
+
         Payment modifiedPayment = new Payment("Сидоров Сидор", 17, 5, 2023, 25000);
         original.setPayment(0, modifiedPayment);
 
-        // Копия не должна измениться
+
         assertNotEquals(modifiedPayment, copy.getPayment(0));
         assertEquals("Иванов Иван", copy.getPayment(0).getFullName());
     }

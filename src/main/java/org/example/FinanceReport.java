@@ -9,28 +9,28 @@ public class FinanceReport {
     private int reportMonth;
     private int reportYear;
 
-    // Конструктор
+
     public FinanceReport(String reporterName, int reportDay, int reportMonth, int reportYear) {
         this.reporterName = reporterName;
         setReportDate(reportDay, reportMonth, reportYear);
         this.payments = new Payment[0];
     }
 
-    // Конструктор с массивом платежей
+
     public FinanceReport(String reporterName, int reportDay, int reportMonth, int reportYear, Payment[] payments) {
         this.reporterName = reporterName;
         setReportDate(reportDay, reportMonth, reportYear);
         this.payments = payments != null ? payments : new Payment[0];
     }
 
-    // Конструктор копирования (глубокая копия)
+
     public FinanceReport(FinanceReport other) {
         this.reporterName = other.reporterName;
         this.reportDay = other.reportDay;
         this.reportMonth = other.reportMonth;
         this.reportYear = other.reportYear;
 
-        // Глубокая копия массива платежей
+
         this.payments = new Payment[other.payments.length];
         for (int i = 0; i < other.payments.length; i++) {
             Payment original = other.payments[i];
@@ -44,7 +44,7 @@ public class FinanceReport {
         }
     }
 
-    // Геттеры
+
     public String getReporterName() {
         return reporterName;
     }
@@ -65,7 +65,7 @@ public class FinanceReport {
         return payments.length;
     }
 
-    // Сеттеры
+
     public void setReporterName(String reporterName) {
         this.reporterName = reporterName;
     }
@@ -86,7 +86,7 @@ public class FinanceReport {
         this.reportYear = year;
     }
 
-    // Доступ к платежу по индексу (чтение)
+
     public Payment getPayment(int index) {
         if (index < 0 || index >= payments.length) {
             throw new IndexOutOfBoundsException("Индекс вне границ массива");
@@ -94,7 +94,7 @@ public class FinanceReport {
         return payments[index];
     }
 
-    // Доступ к платежу по индексу (запись)
+
     public void setPayment(int index, Payment payment) {
         if (index < 0 || index >= payments.length) {
             throw new IndexOutOfBoundsException("Индекс вне границ массива");
@@ -102,7 +102,7 @@ public class FinanceReport {
         payments[index] = payment;
     }
 
-    // Добавление нового платежа
+
     public void addPayment(Payment payment) {
         Payment[] newPayments = Arrays.copyOf(payments, payments.length + 1);
         newPayments[payments.length] = payment;
