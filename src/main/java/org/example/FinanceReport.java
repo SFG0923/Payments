@@ -71,7 +71,8 @@ public class FinanceReport {
     }
 
 
-    public void setReporterName(String reporterName) {
+    public void setReporterName(String reporterName)
+    {
         this.reporterName = reporterName;
     }
 
