@@ -217,10 +217,10 @@ class FinanceReportProcessorTest {
     @Test
     public void testGetTotalPaymentByDate() {
         Payment[] payments = {
-                new Payment("Иванов Иван", 15, 5, 2024, 10000), // 100 руб
-                new Payment("Петров Петр", 15, 5, 2024, 25050), // 250 руб 50 коп
-                new Payment("Сидоров Сидор", 10, 5, 2024, 5000),  // Другой день
-                new Payment("Алексеев Алексей", 15, 5, 2023, 7000) // Другой год
+                new Payment("Иванов Иван", 15, 5, 2024, 10000),
+                new Payment("Петров Петр", 15, 5, 2024, 25050),
+                new Payment("Сидоров Сидор", 10, 5, 2024, 5000),
+                new Payment("Алексеев Алексей", 15, 5, 2023, 7000)
         };
         FinanceReport report = new FinanceReport("Отчетчик", 1, 1, 2024, payments);
         assertEquals(35050, FinanceReportProcessor.getTotalPaymentByDate(report, "15.05.24"));
@@ -232,9 +232,9 @@ class FinanceReportProcessorTest {
     @Test
     public void testGetMonthsWithNoPayments() {
         Payment[] payments = {
-                new Payment("Иванов Иван", 1, 1, 2024, 1000),  // Январь
-                new Payment("Петров Петр", 5, 3, 2024, 2000),  // Март
-                new Payment("Сидоров Сидор", 10, 12, 2024, 3000) // Декабрь
+                new Payment("Иванов Иван", 1, 1, 2024, 1000),
+                new Payment("Петров Петр", 5, 3, 2024, 2000),
+                new Payment("Сидоров Сидор", 10, 12, 2024, 3000)
         };
         FinanceReport report = new FinanceReport("Отчетчик", 1, 1, 2024, payments);
 
@@ -251,7 +251,7 @@ class FinanceReportProcessorTest {
     @Test
     public void testGetMonthsWithNoPaymentsAllYearEmpty() {
         Payment[] payments = {
-                new Payment("Иванов Иван", 1, 1, 2023, 1000) // Платеж только в 2023
+                new Payment("Иванов Иван", 1, 1, 2023, 1000)
         };
         FinanceReport report = new FinanceReport("Отчетчик", 1, 1, 2024, payments);
 
