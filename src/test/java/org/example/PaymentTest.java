@@ -1,5 +1,8 @@
 package org.example;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PaymentTest {
@@ -209,5 +212,63 @@ class FinanceReportProcessorTest {
         FinanceReport result2 = FinanceReportProcessor.getPaymentsLessThanAmount(null, 10000);
         assertNotNull(result2);
         assertEquals(0, result2.getPaymentsCount());
+    }
+    //тесты для допов
+    @Test
+    public void testGetTotalPaymentByDate() {
+        Payment[] payments = {
+                new Payment("Иванов Иван", 15, 5, 2024, 10000), // 100 руб
+                new Payment("Петров Петр", 15, 5, 2024, 25050), // 250 руб 50 коп
+                new Payment("Сидоров Сидор", 10, 5, 2024, 5000),  // Другой день
+                new Payment("Алексеев Алексей", 15, 5, 2023, 7000) // Другой год
+        };
+        FinanceReport report = new FinanceReport("Отчетчик", 1, 1, 2024, payments);
+        assertEquals(35050, FinanceReportProcessor.getTotalPaymentByDate(report, "15.05.24"));
+        assertEquals(5000, FinanceReportProcessor.getTotalPaymentByDate(report, "10.05.24"));
+        assertEquals(7000, FinanceReportProcessor.getTotalPaymentByDate(report, "15.05.23"));
+        assertEquals(0, FinanceReportProcessor.getTotalPaymentByDate(report, "01.01.24"));
+    }
+
+    @Test
+    public void testGetMonthsWithNoPayments() {
+        Payment[] payments = {
+                new Payment("Иванов Иван", 1, 1, 2024, 1000),  // Январь
+                new Payment("Петров Петр", 5, 3, 2024, 2000),  // Март
+                new Payment("Сидоров Сидор", 10, 12, 2024, 3000) // Декабрь
+        };
+        FinanceReport report = new FinanceReport("Отчетчик", 1, 1, 2024, payments);
+
+        List<String> result = FinanceReportProcessor.getMonthsWithNoPayments(report, 2024);
+        assertEquals(9, result.size());
+        assertFalse(result.contains("Январь"));
+        assertFalse(result.contains("Март"));
+        assertFalse(result.contains("Декабрь"));
+        assertTrue(result.contains("Февраль"));
+        assertTrue(result.contains("Июнь"));
+        assertTrue(result.contains("Ноябрь"));
+    }
+
+    @Test
+    public void testGetMonthsWithNoPaymentsAllYearEmpty() {
+        Payment[] payments = {
+                new Payment("Иванов Иван", 1, 1, 2023, 1000) // Платеж только в 2023
+        };
+        FinanceReport report = new FinanceReport("Отчетчик", 1, 1, 2024, payments);
+
+        List<String> result = FinanceReportProcessor.getMonthsWithNoPayments(report, 2024);
+
+
+        assertEquals(12, result.size());
+        assertTrue(result.contains("Январь"));
+        assertTrue(result.contains("Декабрь"));
+    }
+
+    @Test
+    public void testNewMethodsWithNullOrEmptyReport() {
+        assertEquals(0, FinanceReportProcessor.getTotalPaymentByDate(null, "15.05.24"));
+        List<String> resultNull = FinanceReportProcessor.getMonthsWithNoPayments(null, 2024);
+        assertEquals(12, resultNull.size());
+        FinanceReport report = new FinanceReport("Автор", 1, 1, 2024);
+        assertEquals(0, FinanceReportProcessor.getTotalPaymentByDate(report, "не-дата"));
     }
 }
